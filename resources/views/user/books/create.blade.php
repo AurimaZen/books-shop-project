@@ -9,6 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
+                <x-auth-validation-errors class="mb-4" :errors="$errors"/>
                 <form action="{{ route('user.books.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
@@ -32,10 +33,17 @@
 
                 @foreach ($genres as $genre)
 
-                <x-input type="checkbox" name="genres[]" value="{{ $genre->id }}"/>
+                <input type="checkbox" name="genres[]" value="{{ $genre->id }}"
+                @if (in_array($genre->id, old('genres', []))) checked @endif />
                 {{ $genre->name}}
                 </br>
                 @endforeach
+            </div>
+            <!-- Slug -->
+            <div class="mt-4">
+                <x-label for="Slug" :value="__('Slug*')" />
+
+                <x-input id="slug" class="block mt-1 w-full" type="text" name="slug"  :value="old('slug')" required autofocus />
             </div>
 
             <!-- Description -->
@@ -52,6 +60,7 @@
             <x-input id="price" class="block mt-1 w-full"
                 type="number"
                 name="price"
+                value="{{old('price')}}"
                 required />
             </div>
 

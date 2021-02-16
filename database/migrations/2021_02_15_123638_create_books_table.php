@@ -19,7 +19,7 @@ class CreateBooksTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->text('slug');
-            $table->string('cover');
+            $table->string('cover')->nullable();
             $table->integer('price');
             $table->integer('discount')->default(0);
             $table->timestamps();
